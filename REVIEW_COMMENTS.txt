@@ -1,0 +1,7 @@
+Code has been modularized and optimized to run as individual test classes
+  - It can be improved in such a way that all the tests can be added to a TestNG Suite file
+  - By adding a Suite File, we can avoid calling the driver.get() method in each class since we are calling the same web page for all the tests
+    Ex: Include @BeforeSuite annotation in TestBase class and add driver.get("url")
+  - Rather than calling sleeps after each action, it would be efficient if we wait on a condition before each action
+  - Actions like validating "searchSummaryDisplayed" could be moved to a common place
+  - Avoid using absolute XPaths (2 places)
