@@ -1,21 +1,15 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.TestNGUtils;
 import utils.Commons;
 import utils.TestUtils;
 
 public class HotelsPage {
     WebDriver driver;
-
-    public HotelsPage(WebDriver driver) {
-        this.driver = driver;
-    }
 
     @FindBy(linkText = "Hotels")
     private WebElement hotelLink;
@@ -43,6 +37,10 @@ public class HotelsPage {
 
     @FindBy(xpath = "//td[contains(@class, 'selected')]")
     private WebElement selectedDate;
+
+    public HotelsPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void clickHotelsLink() {
         hotelLink.click();

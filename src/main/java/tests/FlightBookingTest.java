@@ -1,6 +1,7 @@
 package tests;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -17,7 +18,7 @@ public class FlightBookingTest {
     public void setup() {
         TestBase.initialize();
         this.driver = TestBase.driver;
-        page = new FlightsPage(driver);
+        page = PageFactory.initElements(driver, FlightsPage.class);
     }
 
     @Test
@@ -28,33 +29,24 @@ public class FlightBookingTest {
         driver.get("https://www.cleartrip.com/");
         Commons.waitFor(2000);
 
+        //Choose One Way radio
         page.clickOneWayRadioButton();
 
+        //Enter From and To cities
         page.fillFromCityField(originCity);
         page.fillToCityField(destinationCity);
-
         Commons.waitFor(6000);
 
-        //select the date by clicking the calendar default
+        //Select date by clicking the calendar default
         page.chooseDefaultDate();
-
         Commons.waitFor(3000);
 
-        //all fields filled in. Now click on search
+        //All fields filled in. Now click on search
         page.clickSearch();
-
         Commons.waitFor(5000);
-        //verify that result appears for the provided journey search
-        Assert.assertTrue(isElementPresent(By.className("searchSummary")));
-    }
 
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+        //Verify that result appears for the provided journey search
+        Assert.assertTrue(page.searchSummaryDisplayed());
     }
 
     @AfterClass
